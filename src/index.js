@@ -3,17 +3,22 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Layout from "./Layout";
-import Home from "./pages/Home"
-import About from "./pages/About"
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Catalog from "./pages/Catalog";
+import News from "./pages/News";
+
 
 const App = () => {
   return (
-    <BrowserRouter basename= {process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-      <Route path = "/" element={<Layout/>}>
-      <Route index element={<Home/>}/>
-      <Route path = "about" element={<About />} />
-      </Route>
+        <Route path = "/" element = {<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />  
+          <Route path="catalog" element={<Catalog />} />
+          <Route path="news" element={<News />} />   
+        </Route>
       </Routes>
     </BrowserRouter>
   )
@@ -25,4 +30,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-

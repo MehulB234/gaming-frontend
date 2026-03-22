@@ -1,27 +1,52 @@
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  Background: pink;
+html, body {
+  margin:0;
 }
 
-  #content {
-    width:70%;
-    padding:5px;
-    background: white;
-    margin:auto;
-  }
+body {
+  font-family:Arial, Helvetica, sans-serif;
+  background-size: cover;
+  background-position: center center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-attachment: fixed; /* Keeps the background fixed when scrolling */
+}
 
-  .hidden {
-    display:none;
+#content {
+    display:flex;
+    flex-direction: column;
+    min-height:100vh;
+    margin:0 auto;
+    width:80%;
+}
 
-  }
-  @media only screen and (min-width: 768px) {
+.main-content {
+  padding:10px;
+  background:rgba(255,255,255,.6);
+  flex-grow:1;
+}
+
+img {
+  max-width:100%;
+}
+
+/* Typography */
+.main-content > h2 {
+  text-align:center;
+  color:#295095;
+}
+
+.hidden {
+  display:none;
+}
+
+/* Larger Screens */
+@media only screen and (min-width: 768px) {
   .columns {
     display:flex;
   }
 
   .one {
     flex:1;
-    }
+  }
 
   .two {
     flex:2;
@@ -30,5 +55,4 @@ body {
   .three {
     flex:3;
   }
-
 }
