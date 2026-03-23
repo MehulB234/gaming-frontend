@@ -3,7 +3,10 @@ import "../css/Footer.css";
 const Footer = () => {
     return (
         <footer id="main-footer">
-            <p>Goodbye</p>
+            <div className="footer-brand">
+                Gamer<span>Gauntlet</span>
+            </div>
+            <p>2026 GamerGauntlet</p>
         </footer>
     );
 };

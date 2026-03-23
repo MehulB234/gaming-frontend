@@ -1,0 +1,34 @@
+.news-page {
+    width: 100%;
+}
+
+.news-wrap {
+    width: min(100% - 32px, var(--max-width));
+    margin: 0 auto;
+    padding: 36px 0 40px;
+}
+
+.page-title {
+    text-align: center;
+    margin: 8px 0 34px;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--white);
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 900px) {
+    .news-wrap {
+        width: min(100% - 24px, var(--max-width));
+        padding-top: 18px;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+}

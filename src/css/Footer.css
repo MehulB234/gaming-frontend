@@ -1,7 +1,22 @@
 #main-footer {
-    background:#198ba9;
-    color:white;
-    text-align:center;
-    padding:2.5px;
-    border-radius:0px 0px 5px 5px;
+    width: min(100% - 32px, var(--max-width));
+    margin: 32px auto 0;
+    padding: 24px 0 12px;
+    text-align: center;
+    color: var(--muted);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.footer-brand {
+    color: var(--white);
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.footer-brand span {
+    color: var(--accent);
+}
+
+#main-footer p {
+    margin: 8px 0 0;
 }

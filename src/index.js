@@ -7,6 +7,10 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Catalog from "./pages/Catalog";
 import News from "./pages/News";
+import Wishlist from "./pages/Wishlist";
+import Cart from "./pages/Cart";
+import EldenRing from "./pages/EldenRing";
+import SpiderMan from "./pages/SpiderMan";
 
 
 const App = () => {
@@ -17,7 +21,11 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />  
           <Route path="catalog" element={<Catalog />} />
-          <Route path="news" element={<News />} />   
+          <Route path="news" element={<News />} /> 
+          <Route path="wishlist" element={<Wishlist />} />
+          <Route path="cart" element={<Cart />} />  
+          <Route path="elden-ring" element={<EldenRing />} />
+          <Route path="spider-man-2" element={<SpiderMan />} />
         </Route>
       </Routes>
     </BrowserRouter>

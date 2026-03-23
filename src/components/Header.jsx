@@ -1,14 +1,25 @@
-import {Link} from "react-router-dom";
-import "../css/Header.css";
+import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
-import logo from "../images/game.jpeg";
+import "../css/Header.css";
 
 const Header = () => {
     return (
         <header id="main-header">
-            <Link to="/"><img id="logo" src={logo} alt="Site logo" /></Link>
-            <h1>Gamer Gauntlet</h1>
-            <Navigation />
+            <div className="header-inner">
+
+                <Link to="/" className="brand">
+                    <span className="brand-white">Gamer</span>
+                    <span className="brand-green">Gauntlet</span>
+                </Link>
+
+                <Navigation />
+
+                <div className="header-actions">
+                    <Link to="/wishlist" className="header-icon">♥</Link>
+                    <Link to="/cart" className="header-icon">🛒</Link>
+                </div>
+
+            </div>
         </header>
     );
 };

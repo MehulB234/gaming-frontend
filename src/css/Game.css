@@ -1,26 +1,69 @@
 #games {
-    justify-content:space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    justify-content: stretch;
 }
 
 .game {
-    position:relative;
-    max-width:25%;
-}
-
-.game h3 {
-    text-align: center;
-    width:100%;
-    padding:10px 0;
-    color:#295095;
-    background:rgba(255,255,255,0.9);
-    z-index:2;
-    position:absolute;
-    bottom:0;
-    margin:0;
-    border-radius:0 0 5px 5px;
+    background: #0f1b24;
+    border: 1px solid #1c2a35;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
 }
 
 .game img {
-    border-radius:5px;
-    display:block;
+    width: 100%;
+    aspect-ratio: 1 / 0.78;
+    object-fit: cover;
+    display: block;
+}
+
+.game h3 {
+    margin: 0.75rem 0.8rem 0.2rem;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.game p {
+    margin: 0 0.8rem 0.7rem;
+    color: #93a0aa;
+    font-size: 0.92rem;
+}
+
+.game .game-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 0.8rem 0.85rem;
+}
+
+.game .price {
+    color: #2fe36e;
+    font-weight: 700;
+}
+
+.game button {
+    background: #2fe36e;
+    color: #06110a;
+    border: none;
+    padding: 0.42rem 0.7rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.game button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+@media (max-width: 640px) {
+    #games {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
 }

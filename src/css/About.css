@@ -1,0 +1,93 @@
+.about-page {
+    width: 100%;
+}
+
+.about-wrap {
+    width: min(100% - 32px, var(--max-width));
+    margin: 0 auto;
+    padding: 26px 0 40px;
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 22px 0 22px;
+}
+
+.highlight-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: linear-gradient(180deg, var(--panel), rgba(10, 20, 30, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: var(--card-shadow);
+}
+
+.highlight-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #001306;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    flex: 0 0 auto;
+}
+
+.highlight-copy h2 {
+    margin: 0 0 6px;
+    font-size: 0.98rem;
+    color: var(--white);
+}
+
+.highlight-copy p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.94rem;
+    line-height: 1.45;
+}
+
+.mission-card {
+    background: linear-gradient(180deg, var(--panel), rgba(10, 20, 30, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 22px;
+    text-align: center;
+}
+
+.mission-card h2 {
+    margin: 0 0 12px;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.mission-card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 760px;
+    margin-inline: auto;
+}
+
+@media (max-width: 900px) {
+    .about-wrap {
+        width: min(100% - 24px, var(--max-width));
+        padding-top: 18px;
+    }
+
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .mission-card {
+        padding: 18px;
+    }
+}
