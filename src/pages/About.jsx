@@ -1,5 +1,7 @@
 import "../css/About.css";
 import Slideshow from "../components/Slideshow";
+import ContactForm from "../components/ContactForm";
+import LocationMap from "../components/LocationMap";
 
 const highlights = [
     {
@@ -15,12 +17,12 @@ const highlights = [
     {
         title: "Best Prices",
         description: "Competitive pricing and regular deals on top releases.",
-        icon: "💳",
+        icon: "🏷️",
     },
     {
         title: "24/7 Support",
         description: "Our support team is ready to help with orders and questions.",
-        icon: "🛟",
+        icon: "🎧",
     },
 ];
 
@@ -28,14 +30,14 @@ const About = () => {
     return (
         <main id="about" className="about-page">
             <div className="about-wrap">
-
-                {}
                 <Slideshow />
 
                 <section className="highlights-grid">
                     {highlights.map((item) => (
                         <article className="highlight-card" key={item.title}>
-                            <div className="highlight-icon">{item.icon}</div>
+                            <div className="highlight-icon" aria-hidden="true">
+                                {item.icon}
+                            </div>
 
                             <div className="highlight-copy">
                                 <h2>{item.title}</h2>
@@ -56,6 +58,18 @@ const About = () => {
                     </p>
                 </section>
 
+                <section id="contact-section" className="section-block">
+                    <h2 className="section-title">Contact &amp; Press</h2>
+                    <p className="muted-paragraph">
+                        Use the form below to reach out — we&apos;ll reply to the email you provide.
+                        Required fields are marked.
+                    </p>
+
+                    <div className="contact-grid">
+                        <ContactForm />
+                        <LocationMap />
+                    </div>
+                </section>
             </div>
         </main>
     );

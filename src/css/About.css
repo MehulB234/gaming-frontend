@@ -75,6 +75,130 @@
     margin-inline: auto;
 }
 
+.section-block {
+    margin-top: 34px;
+}
+
+.section-title {
+    margin: 0 0 10px;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.muted-paragraph {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);
+    gap: 14px;
+    align-items: start;
+}
+
+.contact-card,
+.contact-aside {
+    background: linear-gradient(180deg, var(--panel), rgba(10, 20, 30, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 14px;
+}
+
+.contact-card {
+    display: grid;
+    gap: 12px;
+}
+
+.contact-card label {
+    display: grid;
+    gap: 6px;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.required {
+    color: var(--accent);
+}
+
+.contact-card input,
+.contact-card textarea {
+    width: 100%;
+    background: #0b131a;
+    border: 1px solid #1f2d39;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--white);
+    outline: none;
+}
+
+.contact-card input::placeholder,
+.contact-card textarea::placeholder {
+    color: #6f7d88;
+}
+
+.contact-card input:focus,
+.contact-card textarea:focus {
+    border-color: rgba(21, 210, 90, 0.6);
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background: var(--accent);
+    color: #021207;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.result {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.contact-aside h3 {
+    margin: 0 0 10px;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.map-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #1f2d39;
+    background: #0b131a;
+}
+
+.map-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
 @media (max-width: 900px) {
     .about-wrap {
         width: min(100% - 24px, var(--max-width));
@@ -82,6 +206,10 @@
     }
 
     .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
         grid-template-columns: 1fr;
     }
 }
