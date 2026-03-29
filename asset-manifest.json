@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/gaming-frontend/static/css/main.4afbb80c.css",
-    "main.js": "/gaming-frontend/static/js/main.58efb5b2.js",
+    "main.css": "/gaming-frontend/static/css/main.6f38f097.css",
+    "main.js": "/gaming-frontend/static/js/main.c98fc6a0.js",
     "static/media/HotDeals.png": "/gaming-frontend/static/media/HotDeals.176fcee0eecaaafefdd0.png",
     "static/media/Halo.png": "/gaming-frontend/static/media/Halo.d7b5a5e194af63f84d69.png",
     "static/media/Home.png": "/gaming-frontend/static/media/Home.dcb87f82c91d1d496dbe.png",
@@ -16,11 +16,11 @@
     "static/media/GodOfWar.png": "/gaming-frontend/static/media/GodOfWar.59cd2628b0672129aa2e.png",
     "static/media/Spiderman.jpg": "/gaming-frontend/static/media/Spiderman.c7e3a11c18b69f2705fe.jpg",
     "index.html": "/gaming-frontend/index.html",
-    "main.4afbb80c.css.map": "/gaming-frontend/static/css/main.4afbb80c.css.map",
-    "main.58efb5b2.js.map": "/gaming-frontend/static/js/main.58efb5b2.js.map"
+    "main.6f38f097.css.map": "/gaming-frontend/static/css/main.6f38f097.css.map",
+    "main.c98fc6a0.js.map": "/gaming-frontend/static/js/main.c98fc6a0.js.map"
   },
   "entrypoints": [
-    "static/css/main.4afbb80c.css",
-    "static/js/main.58efb5b2.js"
+    "static/css/main.6f38f097.css",
+    "static/js/main.c98fc6a0.js"
   ]
 }
