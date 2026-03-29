@@ -114,13 +114,19 @@
 }
 
 .contact-card label {
-    display: grid;
+    display: inline-flex;
+    align-items: center;
     gap: 6px;
     color: var(--white);
     font-weight: 700;
     font-size: 0.95rem;
 }
 
+.required {
+    color: var(--accent);
+    font-size: 1rem;
+    margin-left: 2px;
+}
 .required {
     color: var(--accent);
 }
