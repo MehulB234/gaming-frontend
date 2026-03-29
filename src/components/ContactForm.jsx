@@ -1,24 +1,49 @@
-const ContactForm = () => {
-    return (
-        <form
-            id="contact-form"
-            className="contact-card"
-            action="https://api.web3forms.com/submit"
-            method="POST"
-            noValidate
-        >
-            <input
-                type="hidden"
-                name="access_key"
-                id="access_key"
-                value="951a88a1-a86d-4f95-b5d4-8825308be317"
-            />
-            <input
-                type="hidden"
-                id="form-endpoint"
-                value="https://api.web3forms.com/submit"
-            />
+import { useState } from "react";
 
+const ContactForm = () => {
+    const [status, setStatus] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsSubmitting(true);
+        setStatus("");
+
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+
+        const payload = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: "951a88a1-a86d-4f95-b5d4-8825308be317",
+                    ...payload,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setStatus("Thanks — your message was sent. We will reply to your email shortly.");
+                form.reset();
+            } else {
+                setStatus(data.message || "Something went wrong. Please try again.");
+            }
+        } catch {
+            setStatus("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    return (
+        <form id="contact-form" className="contact-card" onSubmit={handleSubmit}>
             <label htmlFor="contact-name">
                 Name <span className="required">*</span>
             </label>
@@ -63,10 +88,16 @@ const ContactForm = () => {
             />
 
             <div className="form-row">
-                <button type="submit" id="submit-btn" className="btn">
-                    Send Message
+                <button type="submit" id="submit-btn" className="btn" disabled={isSubmitting}>
+                    {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
-                <div id="contact-result" className="result" aria-live="polite" />
+                <div
+                    id="contact-result"
+                    className={`result${status ? " visible" : ""}`}
+                    aria-live="polite"
+                >
+                    {status}
+                </div>
             </div>
         </form>
     );
