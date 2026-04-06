@@ -2,34 +2,35 @@ import { Link } from "react-router-dom";
 import "../css/GameCard.css";
 
 const GameCard = ({ game }) => {
-    return (
-        <article className="game-card">
-            <div className="game-thumb">
-                <img src={game.image} alt={`${game.title} cover`} />
-            </div>
+  if (!game || !game.img_name) return null;
 
-            <div className="game-body">
-                <h3 className="game-title">
-                    {game.detailPath ? (
-                        <Link to={game.detailPath} className="game-link">
-                            {game.title}
-                        </Link>
-                    ) : (
-                        game.title
-                    )}
-                </h3>
+  const imageName = game.img_name.split("/").pop();
 
-                <p className="game-meta">{game.console}</p>
+  return (
+    <div className="game-card">
+      <div className="game-thumb">
+        <img
+          src={`http://localhost:3001/images/${imageName}`}
+          alt={game.img_alt}
+        />
+      </div>
 
-                <div className="game-footer">
-                    <span className="game-price">{game.price}</span>
-                    <button type="button" className="add-btn">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-        </article>
-    );
+      <div className="game-body">
+        <h3 className="game-title">
+          <Link to={`/game/${game._id}`} className="title-link">
+            {game.title}
+          </Link>
+        </h3>
+
+        <p className="game-meta">{game.platform}</p>
+
+        <div className="game-footer">
+          <span className="game-price">{game.price_display}</span>
+          <button className="add-btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default GameCard;

@@ -1,92 +1,80 @@
 .catalog-page {
     width: 100%;
-}
-
-.catalog-wrap {
-    width: min(100% - 32px, var(--max-width));
+  }
+  
+  .catalog-wrap {
+    width: min(100% - 32px, 1100px);
     margin: 0 auto;
     padding: 26px 0 40px;
-}
-
-.catalog-hero {
-    margin-bottom: 28px;
-}
-
-.page-title {
+  }
+  
+  .page-title {
     text-align: center;
-    margin: 8px 0 22px;
-    font-size: 22px;
+    margin: 8px 0 28px;
+    font-size: 26px;
     font-weight: 800;
-    color: var(--white);
-}
-
-.filter-group {
-    margin-bottom: 18px;
-}
-
-.filter-group h2 {
+    color: white;
+  }
+  
+  
+  .filter-group {
+    margin-bottom: 20px;
+  }
+  
+  .filter-group h2 {
     margin: 0 0 10px;
     font-size: 18px;
     color: #cfd7df;
     font-weight: 700;
-}
-
-.filter-row {
+  }
+  
+  .filter-row {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-.filter-btn {
+  }
+  
+  .filter-btn {
     background: #111d27;
     color: #b7c0c8;
     border: 1px solid #1f2d39;
     border-radius: 8px;
-    padding: 8px 14px;
+    padding: 7px 14px;
     cursor: pointer;
     font-weight: 700;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.filter-btn:hover,
-.filter-btn:focus-visible {
+    transition: all 0.2s ease;
+  }
+  
+  .filter-btn:hover {
     transform: translateY(-1px);
-    color: var(--white);
-    border-color: rgba(21, 210, 90, 0.45);
-}
-
-.filter-btn.active {
-    background: var(--accent);
+    color: white;
+    border-color: rgba(21, 210, 90, 0.5);
+  }
+  
+  .filter-btn.active {
+    background: #00c853;
     color: #021207;
-    border-color: var(--accent);
-}
-
-.catalog-grid {
+    border-color: #00c853;
+  }
+  
+  /* GRID */
+  
+  .catalog-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 18px;
-    margin-top: 40px;
-}
-
-@media (max-width: 1100px) {
+    margin-top: 35px;
+  }
+  
+  
+  @media (max-width: 900px) {
     .catalog-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, 1fr);
     }
-}
-
-@media (max-width: 900px) {
-    .catalog-wrap {
-        width: min(100% - 24px, var(--max-width));
-        padding-top: 18px;
-    }
-
+  }
+  
+  @media (max-width: 600px) {
     .catalog-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: 1fr;
     }
-}
-
-@media (max-width: 700px) {
-    .catalog-grid {
-        grid-template-columns: 1fr;
-    }
-}
+  }

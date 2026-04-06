@@ -11,6 +11,7 @@ import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
 import EldenRing from "./pages/EldenRing";
 import SpiderMan from "./pages/SpiderMan";
+import GameDetail from "./pages/GameDetail";
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="cart" element={<Cart />} />  
           <Route path="elden-ring" element={<EldenRing />} />
           <Route path="spider-man-2" element={<SpiderMan />} />
+          <Route path="game/:id" element={<GameDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>
