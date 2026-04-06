@@ -1,26 +1,19 @@
 {
   "files": {
-    "main.css": "/gaming-frontend/static/css/main.6f38f097.css",
-    "main.js": "/gaming-frontend/static/js/main.c98fc6a0.js",
+    "main.css": "/gaming-frontend/static/css/main.f10609b0.css",
+    "main.js": "/gaming-frontend/static/js/main.53e253b8.js",
     "static/media/HotDeals.png": "/gaming-frontend/static/media/HotDeals.176fcee0eecaaafefdd0.png",
-    "static/media/Halo.png": "/gaming-frontend/static/media/Halo.d7b5a5e194af63f84d69.png",
     "static/media/Home.png": "/gaming-frontend/static/media/Home.dcb87f82c91d1d496dbe.png",
     "static/media/TopReleases.png": "/gaming-frontend/static/media/TopReleases.2e80beada9702055b13e.png",
     "static/media/mortalkombat.png": "/gaming-frontend/static/media/mortalkombat.bf388a6350a725e0a737.png",
-    "static/media/FC26.png": "/gaming-frontend/static/media/FC26.ae7aa5d289b4ac619d35.png",
-    "static/media/CallOfDuty.png": "/gaming-frontend/static/media/CallOfDuty.645c8fe9fa7e9e68c3b2.png",
-    "static/media/Cyberpunk2077.png": "/gaming-frontend/static/media/Cyberpunk2077.0b48e75d9b42f97823a9.png",
     "static/media/EldenRing.png": "/gaming-frontend/static/media/EldenRing.da87523047333deb98b8.png",
-    "static/media/Assassin.png": "/gaming-frontend/static/media/Assassin.78d6cfa6c2fd2596d911.png",
-    "static/media/Minecraft.png": "/gaming-frontend/static/media/Minecraft.518bdde8f34eb4856507.png",
-    "static/media/GodOfWar.png": "/gaming-frontend/static/media/GodOfWar.59cd2628b0672129aa2e.png",
     "static/media/Spiderman.jpg": "/gaming-frontend/static/media/Spiderman.c7e3a11c18b69f2705fe.jpg",
     "index.html": "/gaming-frontend/index.html",
-    "main.6f38f097.css.map": "/gaming-frontend/static/css/main.6f38f097.css.map",
-    "main.c98fc6a0.js.map": "/gaming-frontend/static/js/main.c98fc6a0.js.map"
+    "main.f10609b0.css.map": "/gaming-frontend/static/css/main.f10609b0.css.map",
+    "main.53e253b8.js.map": "/gaming-frontend/static/js/main.53e253b8.js.map"
   },
   "entrypoints": [
-    "static/css/main.6f38f097.css",
-    "static/js/main.c98fc6a0.js"
+    "static/css/main.f10609b0.css",
+    "static/js/main.53e253b8.js"
   ]
 }
