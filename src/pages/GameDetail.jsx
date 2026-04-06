@@ -2,12 +2,14 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../css/GameDetail.css";
 
+const BASE_URL = "https://demo-backend-4rk5.onrender.com";
+
 const GameDetail = () => {
   const { id } = useParams();
   const [game, setGame] = useState(null);
 
   useEffect(() => {
-    fetch(`https://demo-backend-4rk5.onrender.com/api/catalog/${id}`)
+    fetch(`${BASE_URL}/api/catalog/${id}`)
       .then((res) => res.json())
       .then((data) => setGame(data))
       .catch((err) => console.error(err));
@@ -21,7 +23,6 @@ const GameDetail = () => {
     <div className="game-detail-page">
       <div className="game-detail-container">
 
-        {}
         <Link to="/catalog" className="back-link">
           ← Back to Catalog
         </Link>
@@ -29,7 +30,7 @@ const GameDetail = () => {
         <div className="game-detail-top">
           <div className="game-detail-image">
             <img
-              src={`http://localhost:3001/images/${imageName}`}
+              src={`${BASE_URL}/images/${imageName}`}
               alt={game.img_alt}
             />
           </div>
@@ -58,7 +59,6 @@ const GameDetail = () => {
           </div>
         </div>
 
-        {/* ABOUT */}
         <div className="game-section">
           <h2>About This Game</h2>
           <p>
@@ -67,7 +67,6 @@ const GameDetail = () => {
           </p>
         </div>
 
-        {/* FEATURES */}
         <div className="game-section">
           <h2>Key Features</h2>
           <ul>
@@ -78,7 +77,6 @@ const GameDetail = () => {
           </ul>
         </div>
 
-        {/* SYSTEM REQUIREMENTS */}
         <div className="game-section">
           <h2>System Requirements</h2>
 

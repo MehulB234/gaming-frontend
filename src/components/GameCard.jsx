@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import "../css/GameCard.css";
 
+const BASE_URL = "https://demo-backend-4rk5.onrender.com";
+
 const GameCard = ({ game }) => {
   if (!game || !game.img_name) return null;
 
@@ -10,7 +12,7 @@ const GameCard = ({ game }) => {
     <div className="game-card">
       <div className="game-thumb">
         <img
-          src={`http://localhost:3001/images/${imageName}`}
+          src={`${BASE_URL}/images/${imageName}`}
           alt={game.img_alt}
         />
       </div>
