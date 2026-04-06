@@ -3,13 +3,15 @@ import GameCard from "../components/GameCard";
 import Slideshow from "../components/Slideshow";
 import "../css/Catalog.css";
 
+const BASE_URL = "https://demo-backend-4rk5.onrender.com";
+
 const Catalog = () => {
   const [games, setGames] = useState([]);
   const [category, setCategory] = useState("All");
   const [platform, setPlatform] = useState("All");
 
   useEffect(() => {
-    fetch("https://demo-backend-4rk5.onrender.com/")
+    fetch(`${BASE_URL}/api/catalog`)
       .then((res) => res.json())
       .then((data) => setGames(data))
       .catch((err) => console.error(err));
@@ -26,7 +28,16 @@ const Catalog = () => {
     return categoryMatch && platformMatch;
   });
 
-  const categories = ["All", "RPG", "Shooter", "Action", "Sports", "Adventure", "Sandbox"];
+  const categories = [
+    "All",
+    "RPG",
+    "Shooter",
+    "Action",
+    "Sports",
+    "Adventure",
+    "Sandbox",
+  ];
+
   const platforms = ["All", "PlayStation", "Xbox", "PC"];
 
   return (
