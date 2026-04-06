@@ -7,7 +7,7 @@ const GameDetail = () => {
   const [game, setGame] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/catalog/${id}`)
+    fetch(`https://demo-backend-4rk5.onrender.com/api/catalog/${id}`)
       .then((res) => res.json())
       .then((data) => setGame(data))
       .catch((err) => console.error(err));

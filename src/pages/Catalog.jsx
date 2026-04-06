@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import GameCard from "../components/GameCard";
-import Slideshow from "../components/Slideshow"; // 👈 your existing slideshow
+import Slideshow from "../components/Slideshow";
 import "../css/Catalog.css";
 
 const Catalog = () => {
@@ -9,7 +9,7 @@ const Catalog = () => {
   const [platform, setPlatform] = useState("All");
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/catalog")
+    fetch("https://demo-backend-4rk5.onrender.com/")
       .then((res) => res.json())
       .then((data) => setGames(data))
       .catch((err) => console.error(err));
@@ -33,14 +33,14 @@ const Catalog = () => {
     <div className="catalog-page">
       <div className="catalog-wrap">
 
-        {/* 🔥 SLIDESHOW */}
+        {}
         <div className="catalog-hero">
           <Slideshow />
         </div>
 
         <h1 className="page-title">Game Catalog</h1>
 
-        {/* CATEGORY FILTER */}
+        {}
         <div className="filter-group">
           <h2>Category</h2>
           <div className="filter-row">
@@ -56,7 +56,7 @@ const Catalog = () => {
           </div>
         </div>
 
-        {/* PLATFORM FILTER */}
+        {}
         <div className="filter-group">
           <h2>Console</h2>
           <div className="filter-row">
@@ -72,7 +72,7 @@ const Catalog = () => {
           </div>
         </div>
 
-        {/* GRID */}
+        {}
         <div className="catalog-grid">
           {filteredGames.map((game) => (
             <GameCard key={game._id} game={game} />

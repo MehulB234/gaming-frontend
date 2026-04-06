@@ -28,7 +28,7 @@ const Home = () => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/catalog")
+    fetch("https://demo-backend-4rk5.onrender.com/api/catalog")
       .then((response) => response.json())
       .then((data) => setGames(data))
       .catch((error) => console.error("Error loading featured games:", error));
