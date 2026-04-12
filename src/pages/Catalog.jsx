@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import GameCard from "../components/GameCard";
 import Slideshow from "../components/Slideshow";
 import "../css/Catalog.css";
@@ -26,6 +26,8 @@ const Catalog = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     fetch(`${BASE_URL}/api/catalog`)
@@ -113,6 +115,16 @@ const Catalog = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const clearForm = () => {
+    setFormData(initialForm);
+    setImagePreview("");
+    setErrors({});
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -174,9 +186,7 @@ const Catalog = () => {
       }
 
       setGames((prev) => [...prev, data.game]);
-      setFormData(initialForm);
-      setImagePreview("");
-      setErrors({});
+      clearForm();
       setSuccessMessage("Game added successfully!");
       setShowForm(false);
     } catch (err) {
@@ -340,6 +350,7 @@ const Catalog = () => {
 
                       <div className="upload-controls">
                         <input
+                          ref={fileInputRef}
                           id="image"
                           name="image"
                           type="file"

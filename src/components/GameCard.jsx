@@ -42,12 +42,8 @@ const GameCard = ({ game, onDelete }) => {
           </button>
         </div>
 
-        {onDelete && (
-          <button
-            className="delete-btn"
-            type="button"
-            onClick={onDelete}
-          >
+        {game.isUserAdded && onDelete && (
+          <button className="delete-btn" type="button" onClick={onDelete}>
             Remove
           </button>
         )}
