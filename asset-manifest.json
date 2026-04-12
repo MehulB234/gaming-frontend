@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/gaming-frontend/static/css/main.19f31cd1.css",
-    "main.js": "/gaming-frontend/static/js/main.c3a623fb.js",
+    "main.js": "/gaming-frontend/static/js/main.72aca2a7.js",
     "static/media/HotDeals.png": "/gaming-frontend/static/media/HotDeals.176fcee0eecaaafefdd0.png",
     "static/media/Home.png": "/gaming-frontend/static/media/Home.dcb87f82c91d1d496dbe.png",
     "static/media/TopReleases.png": "/gaming-frontend/static/media/TopReleases.2e80beada9702055b13e.png",
@@ -10,10 +10,10 @@
     "static/media/Spiderman.jpg": "/gaming-frontend/static/media/Spiderman.c7e3a11c18b69f2705fe.jpg",
     "index.html": "/gaming-frontend/index.html",
     "main.19f31cd1.css.map": "/gaming-frontend/static/css/main.19f31cd1.css.map",
-    "main.c3a623fb.js.map": "/gaming-frontend/static/js/main.c3a623fb.js.map"
+    "main.72aca2a7.js.map": "/gaming-frontend/static/js/main.72aca2a7.js.map"
   },
   "entrypoints": [
     "static/css/main.19f31cd1.css",
-    "static/js/main.c3a623fb.js"
+    "static/js/main.72aca2a7.js"
   ]
 }
