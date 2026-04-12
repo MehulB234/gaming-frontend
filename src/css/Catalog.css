@@ -78,3 +78,107 @@
       grid-template-columns: 1fr;
     }
   }
+  
+.add-game-section {
+  margin: 2rem 0 2.5rem;
+}
+
+.add-game-card {
+  background: linear-gradient(180deg, rgba(14, 27, 44, 0.98), rgba(9, 17, 29, 0.98));
+  border: 1px solid rgba(72, 255, 130, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.add-game-card h2 {
+  margin: 0 0 0.35rem;
+  color: #ffffff;
+}
+
+.form-subtitle {
+  margin: 0 0 1.25rem;
+  color: #9fb3c8;
+}
+
+.add-game-form {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field-full {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  margin-bottom: 0.45rem;
+  font-weight: 600;
+  color: #dce8f5;
+}
+
+.form-field input,
+.form-field select {
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 15, 27, 0.95);
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #31e86b;
+  transform: translateY(-1px);
+}
+
+.form-error {
+  margin: 0.45rem 0 0;
+  color: #ff8f8f;
+  font-size: 0.92rem;
+}
+
+.form-error-global {
+  margin-top: 1rem;
+}
+
+.form-success {
+  margin-top: 1rem;
+  color: #67f09c;
+  font-weight: 600;
+}
+
+.submit-game-btn {
+  margin-top: 1.25rem;
+  padding: 0.95rem 1.4rem;
+  border: none;
+  border-radius: 12px;
+  background: #31e86b;
+  color: #08131e;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.submit-game-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
