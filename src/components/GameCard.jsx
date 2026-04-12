@@ -1,6 +1,7 @@
+
 import { Link } from "react-router-dom";
 import "../css/GameCard.css";
-import defaultImage from "../assets/default.png";
+import defaultImage from "../images/Default.png";
 
 const BASE_URL = "https://demo-backend-4rk5.onrender.com";
 
@@ -42,7 +43,11 @@ const GameCard = ({ game, onDelete }) => {
         </div>
 
         {onDelete && (
-          <button className="delete-btn" type="button" onClick={onDelete}>
+          <button
+            className="delete-btn"
+            type="button"
+            onClick={onDelete}
+          >
             Remove
           </button>
         )}
