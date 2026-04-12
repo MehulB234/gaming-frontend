@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import GameCard from "../components/GameCard";
 import Slideshow from "../components/Slideshow";
@@ -147,6 +148,32 @@ const Catalog = () => {
       setErrors({});
       setSuccessMessage("Game added successfully!");
       setShowForm(false);
+    } catch (err) {
+      console.error(err);
+      setErrors({ server: "Server error. Please try again." });
+    }
+  };
+
+  // CHANGED: delete item after a confirm popup
+  const handleDeleteGame = async (id, title) => {
+    const confirmed = window.confirm(`Are you sure you want to delete "${title}"?`);
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(`${BASE_URL}/api/catalog/${id}`, {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors({ server: data.message || "Unable to delete game." });
+        return;
+      }
+
+      setGames((prev) => prev.filter((game) => game._id !== id));
+      setErrors({});
+      setSuccessMessage(`"${title}" deleted successfully.`);
     } catch (err) {
       console.error(err);
       setErrors({ server: "Server error. Please try again." });
@@ -326,7 +353,11 @@ const Catalog = () => {
 
         <div className="catalog-grid">
           {filteredGames.map((game) => (
-            <GameCard key={game._id} game={game} />
+            <GameCard
+              key={game._id}
+              game={game}
+              onDelete={() => handleDeleteGame(game._id, game.title)}
+            />
           ))}
         </div>
       </div>

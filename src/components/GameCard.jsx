@@ -3,7 +3,7 @@ import "../css/GameCard.css";
 
 const BASE_URL = "https://demo-backend-4rk5.onrender.com";
 
-const GameCard = ({ game }) => {
+const GameCard = ({ game, onDelete }) => {
   if (!game || !game.img_name) return null;
 
   const imageName = game.img_name.split("/").pop();
@@ -28,8 +28,20 @@ const GameCard = ({ game }) => {
 
         <div className="game-footer">
           <span className="game-price">{game.price_display}</span>
-          <button className="add-btn">Add to Cart</button>
+          <button className="add-btn" type="button">
+            Add to Cart
+          </button>
         </div>
+
+        {onDelete && (
+          <button
+            className="delete-btn"
+            type="button"
+            onClick={onDelete}
+          >
+            Remove
+          </button>
+        )}
       </div>
     </div>
   );
