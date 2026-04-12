@@ -20,6 +20,7 @@ const Catalog = () => {
   const [category, setCategory] = useState("All");
   const [platform, setPlatform] = useState("All");
 
+  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
@@ -145,6 +146,7 @@ const Catalog = () => {
       setFormData(initialForm);
       setErrors({});
       setSuccessMessage("Game added successfully!");
+      setShowForm(false);
     } catch (err) {
       console.error(err);
       setErrors({ server: "Server error. Please try again." });
@@ -158,128 +160,139 @@ const Catalog = () => {
           <Slideshow />
         </div>
 
-        <section className="add-game-section">
-          <div className="add-game-card">
-            <h2>Add a New Game</h2>
-            <p className="form-subtitle">
-              Add a fresh title to the GamerGauntlet catalog.
-            </p>
+        <div className="catalog-header-row">
+          <button
+            className="add-toggle-btn"
+            onClick={() => setShowForm((prev) => !prev)}
+            aria-label="Toggle add game form"
+          >
+            {showForm ? "−" : "+"}
+          </button>
+          <h1 className="page-title">Game Catalog</h1>
+        </div>
 
-            <form className="add-game-form" onSubmit={handleSubmit}>
-              <div className="form-grid">
-                <div className="form-field">
-                  <label htmlFor="title">Game Title</label>
-                  <input
-                    id="title"
-                    name="title"
-                    type="text"
-                    value={formData.title}
-                    onChange={handleChange}
-                    placeholder="Enter game title"
-                  />
-                  {errors.title && <p className="form-error">{errors.title}</p>}
+        {showForm && (
+          <section className="add-game-section">
+            <div className="add-game-card">
+              <h2>Add a New Game</h2>
+              <p className="form-subtitle">
+                Add a fresh title to the GamerGauntlet catalog.
+              </p>
+
+              <form className="add-game-form" onSubmit={handleSubmit}>
+                <div className="form-grid">
+                  <div className="form-field">
+                    <label htmlFor="title">Game Title</label>
+                    <input
+                      id="title"
+                      name="title"
+                      type="text"
+                      value={formData.title}
+                      onChange={handleChange}
+                      placeholder="Enter game title"
+                    />
+                    {errors.title && <p className="form-error">{errors.title}</p>}
+                  </div>
+
+                  <div className="form-field">
+                    <label htmlFor="img_name">Image URL</label>
+                    <input
+                      id="img_name"
+                      name="img_name"
+                      type="text"
+                      value={formData.img_name}
+                      onChange={handleChange}
+                      placeholder="/images/newgame.png or https://..."
+                    />
+                    {errors.img_name && <p className="form-error">{errors.img_name}</p>}
+                  </div>
+
+                  <div className="form-field">
+                    <label htmlFor="img_alt">Image Alt Text</label>
+                    <input
+                      id="img_alt"
+                      name="img_alt"
+                      type="text"
+                      value={formData.img_alt}
+                      onChange={handleChange}
+                      placeholder="Describe the cover art"
+                    />
+                    {errors.img_alt && <p className="form-error">{errors.img_alt}</p>}
+                  </div>
+
+                  <div className="form-field">
+                    <label htmlFor="platform">Platform</label>
+                    <select
+                      id="platform"
+                      name="platform"
+                      value={formData.platform}
+                      onChange={handleChange}
+                    >
+                      {formPlatforms.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.platform && <p className="form-error">{errors.platform}</p>}
+                  </div>
+
+                  <div className="form-field">
+                    <label htmlFor="genre">Genre</label>
+                    <select
+                      id="genre"
+                      name="genre"
+                      value={formData.genre}
+                      onChange={handleChange}
+                    >
+                      {formGenres.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.genre && <p className="form-error">{errors.genre}</p>}
+                  </div>
+
+                  <div className="form-field">
+                    <label htmlFor="price">Price</label>
+                    <input
+                      id="price"
+                      name="price"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      max="100"
+                      value={formData.price}
+                      onChange={handleChange}
+                      placeholder="59.99"
+                    />
+                    {errors.price && <p className="form-error">{errors.price}</p>}
+                  </div>
+
+                  <div className="form-field form-field-full">
+                    <label htmlFor="detail_link">Detail Link</label>
+                    <input
+                      id="detail_link"
+                      name="detail_link"
+                      type="text"
+                      value={formData.detail_link}
+                      onChange={handleChange}
+                      placeholder="/game/9"
+                    />
+                  </div>
                 </div>
 
-                <div className="form-field">
-                  <label htmlFor="img_name">Image URL</label>
-                  <input
-                    id="img_name"
-                    name="img_name"
-                    type="text"
-                    value={formData.img_name}
-                    onChange={handleChange}
-                    placeholder="/images/newgame.png or https://..."
-                  />
-                  {errors.img_name && <p className="form-error">{errors.img_name}</p>}
-                </div>
+                {errors.server && <p className="form-error form-error-global">{errors.server}</p>}
+                {successMessage && <p className="form-success">{successMessage}</p>}
 
-                <div className="form-field">
-                  <label htmlFor="img_alt">Image Alt Text</label>
-                  <input
-                    id="img_alt"
-                    name="img_alt"
-                    type="text"
-                    value={formData.img_alt}
-                    onChange={handleChange}
-                    placeholder="Describe the cover art"
-                  />
-                  {errors.img_alt && <p className="form-error">{errors.img_alt}</p>}
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="platform">Platform</label>
-                  <select
-                    id="platform"
-                    name="platform"
-                    value={formData.platform}
-                    onChange={handleChange}
-                  >
-                    {formPlatforms.map((item) => (
-                      <option key={item} value={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.platform && <p className="form-error">{errors.platform}</p>}
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="genre">Genre</label>
-                  <select
-                    id="genre"
-                    name="genre"
-                    value={formData.genre}
-                    onChange={handleChange}
-                  >
-                    {formGenres.map((item) => (
-                      <option key={item} value={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.genre && <p className="form-error">{errors.genre}</p>}
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="price">Price</label>
-                  <input
-                    id="price"
-                    name="price"
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    max="100"
-                    value={formData.price}
-                    onChange={handleChange}
-                    placeholder="59.99"
-                  />
-                  {errors.price && <p className="form-error">{errors.price}</p>}
-                </div>
-
-                <div className="form-field form-field-full">
-                  <label htmlFor="detail_link">Detail Link</label>
-                  <input
-                    id="detail_link"
-                    name="detail_link"
-                    type="text"
-                    value={formData.detail_link}
-                    onChange={handleChange}
-                    placeholder="/game/9"
-                  />
-                </div>
-              </div>
-
-              {errors.server && <p className="form-error form-error-global">{errors.server}</p>}
-              {successMessage && <p className="form-success">{successMessage}</p>}
-
-              <button type="submit" className="submit-game-btn">
-                Add Game to Catalog
-              </button>
-            </form>
-          </div>
-        </section>
-
-        <h1 className="page-title">Game Catalog</h1>
+                <button type="submit" className="submit-game-btn">
+                  Add Game to Catalog
+                </button>
+              </form>
+            </div>
+          </section>
+        )}
 
         <div className="filter-group">
           <h2>Category</h2>
