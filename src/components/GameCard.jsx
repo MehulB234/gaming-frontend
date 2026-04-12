@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import "../css/GameCard.css";
 
@@ -6,13 +7,13 @@ const BASE_URL = "https://demo-backend-4rk5.onrender.com";
 const GameCard = ({ game, onDelete }) => {
   if (!game || !game.img_name) return null;
 
-  const imageName = game.img_name.split("/").pop();
+  const imageFileName = game.img_name.split("/").pop();
 
   return (
     <div className="game-card">
       <div className="game-thumb">
         <img
-          src={`${BASE_URL}/images/${imageName}`}
+          src={`${BASE_URL}/images/${imageFileName}`}
           alt={game.img_alt}
         />
       </div>
@@ -34,11 +35,7 @@ const GameCard = ({ game, onDelete }) => {
         </div>
 
         {onDelete && (
-          <button
-            className="delete-btn"
-            type="button"
-            onClick={onDelete}
-          >
+          <button className="delete-btn" type="button" onClick={onDelete}>
             Remove
           </button>
         )}

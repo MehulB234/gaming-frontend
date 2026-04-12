@@ -69,7 +69,7 @@ const Catalog = () => {
     }
 
     if (!formData.img_name.trim()) {
-      newErrors.img_name = "Image URL is required.";
+      newErrors.img_name = "Image filename is required.";
     }
 
     if (
@@ -154,7 +154,6 @@ const Catalog = () => {
     }
   };
 
-  // CHANGED: delete item after a confirm popup
   const handleDeleteGame = async (id, title) => {
     const confirmed = window.confirm(`Are you sure you want to delete "${title}"?`);
     if (!confirmed) return;
@@ -192,6 +191,7 @@ const Catalog = () => {
             className="add-toggle-btn"
             onClick={() => setShowForm((prev) => !prev)}
             aria-label="Toggle add game form"
+            type="button"
           >
             {showForm ? "−" : "+"}
           </button>
@@ -203,7 +203,8 @@ const Catalog = () => {
             <div className="add-game-card">
               <h2>Add a New Game</h2>
               <p className="form-subtitle">
-                Add a fresh title to the GamerGauntlet catalog.
+                Add a fresh title to the GamerGauntlet catalog. Put the image file in{" "}
+                <strong>backend/public/images</strong> and type the filename here.
               </p>
 
               <form className="add-game-form" onSubmit={handleSubmit}>
@@ -222,14 +223,14 @@ const Catalog = () => {
                   </div>
 
                   <div className="form-field">
-                    <label htmlFor="img_name">Image URL</label>
+                    <label htmlFor="img_name">Image Filename</label>
                     <input
                       id="img_name"
                       name="img_name"
                       type="text"
                       value={formData.img_name}
                       onChange={handleChange}
-                      placeholder="/images/newgame.png or https://..."
+                      placeholder="halo.png"
                     />
                     {errors.img_name && <p className="form-error">{errors.img_name}</p>}
                   </div>
@@ -329,6 +330,7 @@ const Catalog = () => {
                 key={cat}
                 className={`filter-btn ${category === cat ? "active" : ""}`}
                 onClick={() => setCategory(cat)}
+                type="button"
               >
                 {cat}
               </button>
@@ -344,6 +346,7 @@ const Catalog = () => {
                 key={plat}
                 className={`filter-btn ${platform === plat ? "active" : ""}`}
                 onClick={() => setPlatform(plat)}
+                type="button"
               >
                 {plat}
               </button>
