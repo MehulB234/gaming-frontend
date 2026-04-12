@@ -8,7 +8,7 @@ const BASE_URL = "https://demo-backend-4rk5.onrender.com";
 
 const initialForm = {
   title: "",
-  img_name: "",
+  imageFile: null,
   img_alt: "",
   platform: "PlayStation",
   genre: "RPG",
@@ -23,6 +23,7 @@ const Catalog = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState(initialForm);
+  const [imagePreview, setImagePreview] = useState("");
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -32,6 +33,14 @@ const Catalog = () => {
       .then((data) => setGames(data))
       .catch((err) => console.error(err));
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   const categories = [
     "All",
@@ -68,8 +77,10 @@ const Catalog = () => {
       newErrors.title = "Title must be between 2 and 60 characters.";
     }
 
-    if (!formData.img_name.trim()) {
-      newErrors.img_name = "Image filename is required.";
+    if (!formData.imageFile) {
+      newErrors.image = "Please upload an image file.";
+    } else if (!formData.imageFile.type.startsWith("image/")) {
+      newErrors.image = "Only image files are allowed.";
     }
 
     if (
@@ -113,6 +124,22 @@ const Catalog = () => {
     setSuccessMessage("");
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0] || null;
+
+    setFormData((prev) => ({
+      ...prev,
+      imageFile: file,
+    }));
+
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+
+    setImagePreview(file ? URL.createObjectURL(file) : "");
+    setSuccessMessage("");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -121,15 +148,18 @@ const Catalog = () => {
     }
 
     try {
+      const submitData = new FormData();
+      submitData.append("title", formData.title.trim());
+      submitData.append("image", formData.imageFile);
+      submitData.append("img_alt", formData.img_alt.trim());
+      submitData.append("platform", formData.platform);
+      submitData.append("genre", formData.genre);
+      submitData.append("price", formData.price);
+      submitData.append("detail_link", formData.detail_link.trim());
+
       const response = await fetch(`${BASE_URL}/api/catalog`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          price: Number(formData.price),
-        }),
+        body: submitData,
       });
 
       const data = await response.json();
@@ -145,6 +175,7 @@ const Catalog = () => {
 
       setGames((prev) => [...prev, data.game]);
       setFormData(initialForm);
+      setImagePreview("");
       setErrors({});
       setSuccessMessage("Game added successfully!");
       setShowForm(false);
@@ -203,8 +234,7 @@ const Catalog = () => {
             <div className="add-game-card">
               <h2>Add a New Game</h2>
               <p className="form-subtitle">
-                Add a fresh title to the GamerGauntlet catalog. Put the image file in{" "}
-                <strong>backend/public/images</strong> and type the filename here.
+                Upload an image from your computer and add the game to the catalog.
               </p>
 
               <form className="add-game-form" onSubmit={handleSubmit}>
@@ -220,19 +250,6 @@ const Catalog = () => {
                       placeholder="Enter game title"
                     />
                     {errors.title && <p className="form-error">{errors.title}</p>}
-                  </div>
-
-                  <div className="form-field">
-                    <label htmlFor="img_name">Image Filename</label>
-                    <input
-                      id="img_name"
-                      name="img_name"
-                      type="text"
-                      value={formData.img_name}
-                      onChange={handleChange}
-                      placeholder="halo.png"
-                    />
-                    {errors.img_name && <p className="form-error">{errors.img_name}</p>}
                   </div>
 
                   <div className="form-field">
@@ -308,6 +325,34 @@ const Catalog = () => {
                       onChange={handleChange}
                       placeholder="/game/9"
                     />
+                  </div>
+
+                  <div className="form-field form-field-full">
+                    <label htmlFor="image">Upload Image</label>
+                    <div className="upload-row">
+                      <div className="upload-preview">
+                        {imagePreview ? (
+                          <img src={imagePreview} alt="Selected preview" />
+                        ) : (
+                          <span>No image selected</span>
+                        )}
+                      </div>
+
+                      <div className="upload-controls">
+                        <input
+                          id="image"
+                          name="image"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          className="upload-input"
+                        />
+                        <p className="upload-help">
+                          Choose a JPG, PNG, or GIF from your computer.
+                        </p>
+                        {errors.image && <p className="form-error">{errors.image}</p>}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
