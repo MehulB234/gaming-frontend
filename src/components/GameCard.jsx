@@ -7,14 +7,21 @@ const BASE_URL = "https://demo-backend-4rk5.onrender.com";
 const GameCard = ({ game, onDelete }) => {
   if (!game || !game.img_name) return null;
 
-  const imageFileName = game.img_name.split("/").pop();
+  const isFullUrl = game.img_name.startsWith("http");
+
+  const imageSrc = isFullUrl
+    ? game.img_name
+    : `${BASE_URL}/images/${game.img_name.split("/").pop()}`;
 
   return (
     <div className="game-card">
       <div className="game-thumb">
         <img
-          src={`${BASE_URL}/images/${imageFileName}`}
+          src={imageSrc}
           alt={game.img_alt}
+          onError={(e) => {
+            e.currentTarget.src = "/images/default.png";
+          }}
         />
       </div>
 
@@ -35,7 +42,11 @@ const GameCard = ({ game, onDelete }) => {
         </div>
 
         {onDelete && (
-          <button className="delete-btn" type="button" onClick={onDelete}>
+          <button
+            className="delete-btn"
+            type="button"
+            onClick={onDelete}
+          >
             Remove
           </button>
         )}
