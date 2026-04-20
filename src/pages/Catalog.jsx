@@ -9,6 +9,7 @@ const BASE_URL = "https://demo-backend-4rk5.onrender.com";
 const initialForm = {
   title: "",
   imageFile: null,
+  currentImageName: "",
   img_alt: "",
   platform: "PlayStation",
   genre: "RPG",
@@ -22,6 +23,7 @@ const Catalog = () => {
   const [platform, setPlatform] = useState("All");
 
   const [showForm, setShowForm] = useState(false);
+  const [editingGameId, setEditingGameId] = useState(null);
   const [formData, setFormData] = useState(initialForm);
   const [imagePreview, setImagePreview] = useState("");
   const [errors, setErrors] = useState({});
@@ -35,14 +37,6 @@ const Catalog = () => {
       .then((data) => setGames(data))
       .catch((err) => console.error(err));
   }, []);
-
-  useEffect(() => {
-    return () => {
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
-      }
-    };
-  }, [imagePreview]);
 
   const categories = [
     "All",
@@ -58,6 +52,17 @@ const Catalog = () => {
   const formPlatforms = ["PlayStation", "Xbox", "PC"];
   const formGenres = ["RPG", "Shooter", "Action", "Sports", "Adventure", "Sandbox"];
 
+  const getImageSrc = (imageName) => {
+    if (!imageName) return "";
+
+    if (imageName.startsWith("http")) {
+      return imageName;
+    }
+
+    const fileName = imageName.split("/").pop();
+    return `${BASE_URL}/images/${fileName}`;
+  };
+
   const filteredGames = games.filter((game) => {
     const categoryMatch =
       category === "All" ||
@@ -67,6 +72,25 @@ const Catalog = () => {
 
     return categoryMatch && platformMatch;
   });
+
+  const revokePreviewIfNeeded = (preview) => {
+    if (preview && preview.startsWith("blob:")) {
+      URL.revokeObjectURL(preview);
+    }
+  };
+
+  const resetForm = () => {
+    revokePreviewIfNeeded(imagePreview);
+
+    setFormData(initialForm);
+    setImagePreview("");
+    setEditingGameId(null);
+    setErrors({});
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -79,9 +103,11 @@ const Catalog = () => {
       newErrors.title = "Title must be between 2 and 60 characters.";
     }
 
-    if (!formData.imageFile) {
+    const hasExistingImage = Boolean(formData.currentImageName);
+
+    if (!formData.imageFile && !hasExistingImage && !editingGameId) {
       newErrors.image = "Please upload an image file.";
-    } else if (!formData.imageFile.type.startsWith("image/")) {
+    } else if (formData.imageFile && !formData.imageFile.type.startsWith("image/")) {
       newErrors.image = "Only image files are allowed.";
     }
 
@@ -115,16 +141,6 @@ const Catalog = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const clearForm = () => {
-    setFormData(initialForm);
-    setImagePreview("");
-    setErrors({});
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -139,16 +155,47 @@ const Catalog = () => {
   const handleImageChange = (e) => {
     const file = e.target.files?.[0] || null;
 
+    revokePreviewIfNeeded(imagePreview);
+
     setFormData((prev) => ({
       ...prev,
       imageFile: file,
     }));
 
-    if (imagePreview) {
-      URL.revokeObjectURL(imagePreview);
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+    } else if (formData.currentImageName) {
+      setImagePreview(getImageSrc(formData.currentImageName));
+    } else {
+      setImagePreview("");
     }
 
-    setImagePreview(file ? URL.createObjectURL(file) : "");
+    setSuccessMessage("");
+  };
+
+  const handleEditGame = (game) => {
+    setEditingGameId(game._id);
+    setFormData({
+      title: game.title,
+      imageFile: null,
+      currentImageName: game.img_name || "",
+      img_alt: game.img_alt || "",
+      platform: game.platform || "PlayStation",
+      genre: game.genre || "RPG",
+      price: game.price,
+      detail_link: game.detail_link || "",
+    });
+
+    revokePreviewIfNeeded(imagePreview);
+    setImagePreview(getImageSrc(game.img_name));
+    setErrors({});
+    setSuccessMessage("");
+    setShowForm(true);
+  };
+
+  const handleCancelEdit = () => {
+    resetForm();
+    setShowForm(false);
     setSuccessMessage("");
   };
 
@@ -159,18 +206,31 @@ const Catalog = () => {
       return;
     }
 
+    const isEditing = editingGameId !== null;
+
     try {
       const submitData = new FormData();
       submitData.append("title", formData.title.trim());
-      submitData.append("image", formData.imageFile);
       submitData.append("img_alt", formData.img_alt.trim());
       submitData.append("platform", formData.platform);
       submitData.append("genre", formData.genre);
       submitData.append("price", formData.price);
       submitData.append("detail_link", formData.detail_link.trim());
 
-      const response = await fetch(`${BASE_URL}/api/catalog`, {
-        method: "POST",
+      if (isEditing) {
+        submitData.append("currentImageName", formData.currentImageName);
+      }
+
+      if (formData.imageFile) {
+        submitData.append("image", formData.imageFile);
+      }
+
+      const url = isEditing
+        ? `${BASE_URL}/api/catalog/${editingGameId}`
+        : `${BASE_URL}/api/catalog`;
+
+      const response = await fetch(url, {
+        method: isEditing ? "PUT" : "POST",
         body: submitData,
       });
 
@@ -180,14 +240,22 @@ const Catalog = () => {
         if (data.errors) {
           setErrors({ server: data.errors.join(" ") });
         } else {
-          setErrors({ server: "Unable to add game." });
+          setErrors({ server: data.message || "Unable to save game." });
         }
         return;
       }
 
-      setGames((prev) => [...prev, data.game]);
-      clearForm();
-      setSuccessMessage("Game added successfully!");
+      if (isEditing) {
+        setGames((prev) =>
+          prev.map((game) => (game._id === editingGameId ? data.game : game))
+        );
+        setSuccessMessage("Game updated successfully!");
+      } else {
+        setGames((prev) => [...prev, data.game]);
+        setSuccessMessage("Game added successfully!");
+      }
+
+      resetForm();
       setShowForm(false);
     } catch (err) {
       console.error(err);
@@ -212,6 +280,12 @@ const Catalog = () => {
       }
 
       setGames((prev) => prev.filter((game) => game._id !== id));
+
+      if (editingGameId === id) {
+        resetForm();
+        setShowForm(false);
+      }
+
       setErrors({});
       setSuccessMessage(`"${title}" deleted successfully.`);
     } catch (err) {
@@ -219,6 +293,9 @@ const Catalog = () => {
       setErrors({ server: "Server error. Please try again." });
     }
   };
+
+  const currentPreviewSrc =
+    imagePreview || (formData.currentImageName ? getImageSrc(formData.currentImageName) : "");
 
   return (
     <div className="catalog-page">
@@ -239,13 +316,26 @@ const Catalog = () => {
           <h1 className="page-title">Game Catalog</h1>
         </div>
 
+        <div className="status-area">
+          {errors.server && <p className="form-error form-error-global">{errors.server}</p>}
+          {successMessage && <p className="form-success status-message">{successMessage}</p>}
+        </div>
+
         {showForm && (
           <section className="add-game-section">
             <div className="add-game-card">
-              <h2>Add a New Game</h2>
+              <h2>{editingGameId ? "Edit Game" : "Add a New Game"}</h2>
               <p className="form-subtitle">
-                Upload an image from your computer and add the game to the catalog.
+                {editingGameId
+                  ? "Update the selected game and save your changes."
+                  : "Upload an image from your computer and add the game to the catalog."}
               </p>
+
+              {editingGameId && (
+                <p className="editing-notice">
+                  Editing: <strong>{formData.title}</strong>
+                </p>
+              )}
 
               <form className="add-game-form" onSubmit={handleSubmit}>
                 <div className="form-grid">
@@ -341,8 +431,8 @@ const Catalog = () => {
                     <label htmlFor="image">Upload Image</label>
                     <div className="upload-row">
                       <div className="upload-preview">
-                        {imagePreview ? (
-                          <img src={imagePreview} alt="Selected preview" />
+                        {currentPreviewSrc ? (
+                          <img src={currentPreviewSrc} alt="Selected preview" />
                         ) : (
                           <span>No image selected</span>
                         )}
@@ -367,12 +457,21 @@ const Catalog = () => {
                   </div>
                 </div>
 
-                {errors.server && <p className="form-error form-error-global">{errors.server}</p>}
-                {successMessage && <p className="form-success">{successMessage}</p>}
+                <div className="form-actions">
+                  <button type="submit" className="submit-game-btn">
+                    {editingGameId ? "Update Game" : "Add Game to Catalog"}
+                  </button>
 
-                <button type="submit" className="submit-game-btn">
-                  Add Game to Catalog
-                </button>
+                  {editingGameId && (
+                    <button
+                      type="button"
+                      className="cancel-edit-btn"
+                      onClick={handleCancelEdit}
+                    >
+                      Cancel Edit
+                    </button>
+                  )}
+                </div>
               </form>
             </div>
           </section>
@@ -415,6 +514,7 @@ const Catalog = () => {
             <GameCard
               key={game._id}
               game={game}
+              onEdit={() => handleEditGame(game)}
               onDelete={() => handleDeleteGame(game._id, game.title)}
             />
           ))}

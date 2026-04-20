@@ -5,7 +5,7 @@ import defaultImage from "../images/Default.png";
 
 const BASE_URL = "https://demo-backend-4rk5.onrender.com";
 
-const GameCard = ({ game, onDelete }) => {
+const GameCard = ({ game, onEdit, onDelete }) => {
   if (!game || !game.img_name) return null;
 
   const isFullUrl = game.img_name.startsWith("http");
@@ -42,11 +42,15 @@ const GameCard = ({ game, onDelete }) => {
           </button>
         </div>
 
-        {game.isUserAdded && onDelete && (
+        <div className="card-actions">
+          <button className="edit-btn" type="button" onClick={onEdit}>
+            Edit
+          </button>
+
           <button className="delete-btn" type="button" onClick={onDelete}>
             Remove
           </button>
-        )}
+        </div>
       </div>
     </div>
   );
